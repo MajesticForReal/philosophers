@@ -6,66 +6,101 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:52:35 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/11 16:20:57 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/13 22:24:29 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_check_arg2(char **argv)
+void	*routine(void *data)
 {
-	int	i;
-	int	j;
+	t_philo	*philo;
 
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		if (argv[i][0] == '\0')
-			return (-1);
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (-1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+	philo = (t_philo *)data;
+	while (check_stop(philo->data) == 0)
+		take_fork(philo);
+	return (NULL);
 }
 
-int	ft_check_arg(int argc, char **argv)
+void	next_prog(t_philo *philo)
 {
-	if (argc != 5 && argc != 6)
+	int	j;
+
+	j = 0;
+	while (check_stop(philo->data) == 0)
 	{
-		write(2, "Invalid number of arguments\n", 28);
-		return (-1);
+		if (check_dead(&philo[j]) == 0 || check_eat(philo) == 0)
+		{
+			j = 0;
+			while (j < philo->data->nb_philo)
+			{
+				pthread_join(philo[j].thread, NULL);
+				j++;
+			}
+			// j = -1;
+			// while (++j < philo->data->nb_philo)
+				// pthread_mutex_destroy(&philo[j].lf);
+			pthread_mutex_destroy(&philo->data->dead_mutex);
+			pthread_mutex_destroy(&philo->data->write_mutex);
+			pthread_mutex_destroy(&philo->data->eat_mutex);
+			pthread_mutex_destroy(&philo->data->stop_mutex);
+			return ;
+		}
 	}
-	if (ft_check_arg2(argv) == -1)
+}
+
+void	create_thread(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->data->nb_philo)
 	{
-		write(2, "Invalid argument\n", 17);
-		return (-1);
+		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		usleep(2000);
+		i++;
 	}
+	next_prog(philo);
+}
+
+int	init_mutex(t_data *data)
+{
+	if (pthread_mutex_init(&data->write_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->stop_mutex, NULL) != 0)
+		return (-1);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	long int		time;
-	struct timeval	current_time;
+	t_data	*data;
+	t_philo *philo;
+	int	i;
 
-	if (gettimeofday(&current_time, NULL) == -1)
-		return (-1);
-	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
-	printf("TIME : %ld\n", time);
-	// printf("TIME : %ld\n", current_time.tv_usec);
-	// printf("TIME : %ld\n", current_time.tv_usec);
-	// printf("TIME : %ld\n", current_time.tv_usec);
-	// printf("TIME : %ld\n", current_time.tv_usec);
-	// printf("seconds : %ld\nmicro seconds : %ld",
-			// current_time.tv_sec,
-			// current_time.tv_usec);
 	if (ft_check_arg(argc, argv) == -1)
 		return (-1);
+	data = malloc(sizeof(t_data));
+	init_all(argc, argv, data);
+	philo = malloc(sizeof(t_philo) * (data->nb_philo));
+	if (argv[1][0] == '1' && argv[1][1] == '\0')
+		ft_one_philo(data);
+	init_philo(data, philo);
+	// create__TREAD
+	init_mutex(data);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		printf("ID : %d\nLF : %d\nRF : %d\nX_MEAL : %d\nLAST MEAL : %ld\n", philo[i].id, philo[i].lf, philo[i].rf, philo[i].x_meal, philo[i].last_meal);
+		i++;
+	}
+	// printf("ID : %d\nLF : %d\nRF : %d\nX_MEAL : %d\nLAST MEAL : %ld\n", philo[i].id, philo[i].lf, philo[i].rf, philo[i].x_meal, philo[i].last_meal);
+	printf("%ld\n%d\n%d\n%d\n%d\n%d\n", data->time_start, data->nb_philo, data->time_die, data->time_eat, data->time_sleep, data->nb_eat);
+	free(data);
+	free(philo);
 	return (0);
 }

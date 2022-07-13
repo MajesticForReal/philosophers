@@ -6,11 +6,11 @@
 #    By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 18:31:29 by anrechai          #+#    #+#              #
-#    Updated: 2022/07/07 18:31:53 by anrechai         ###   ########.fr        #
+#    Updated: 2022/07/13 20:56:15 by anrechai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	main.c
+SRCS		=	main.c utils.c init.c check.c
 
 OBJS		=	${SRCS:.c=.o}
 
