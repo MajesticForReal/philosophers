@@ -6,7 +6,7 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:29:58 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/13 22:23:52 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:58:43 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 	struct s_data	*data;
 }					t_philo;
 
+int ft_strlen(char *str);
 int					init_mutex(t_data *data);
 void				init_philo(t_data *data, t_philo *philo);
 int					ft_check_arg(int argc, char **argv);

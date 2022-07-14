@@ -6,11 +6,21 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:55:59 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/13 20:44:23 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:58:25 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int ft_strlen(char *str)
+{
+  int i;
+
+  i = 0;
+  while (*str++)
+    i++;
+  return (i);
+}
 
 int	ft_atoi(const char *nptr)
 {

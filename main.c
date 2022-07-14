@@ -6,48 +6,91 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:52:35 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/13 22:24:29 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:55:07 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *data)
-{
-	t_philo	*philo;
+// int	check_dead(t_philo *philo)
+// {
+// 	pthread_mutex_lock(&philo->data->dead_mutex);
+// 	if ((ft_time() - philo->data->time_start)
+// 		- philo->last_meal >= philo->data->time_die)
+// 	{
+// 		write(1, "DEAD\n", 5);
+// 		pthread_mutex_lock(&philo->data->stop_mutex);
+// 		philo->data->stop = 1;
+// 		pthread_mutex_unlock(&philo->data->stop_mutex);
+// 		pthread_mutex_unlock(&philo->data->dead_mutex);
+// 		return (0);
+// 	}
+// 	pthread_mutex_unlock(&philo->data->dead_mutex);
+// 	return (1);
+// }
 
-	philo = (t_philo *)data;
-	while (check_stop(philo->data) == 0)
-		take_fork(philo);
-	return (NULL);
-}
+// int	check_stop(t_data *data)
+// {
+// 	int	ret;
 
-void	next_prog(t_philo *philo)
-{
-	int	j;
+// 	pthread_mutex_lock(&data->stop_mutex);
+// 	ret = data->stop;
+// 	pthread_mutex_unlock(&data->stop_mutex);
+// 	return (ret);
+// }
 
-	j = 0;
-	while (check_stop(philo->data) == 0)
-	{
-		if (check_dead(&philo[j]) == 0 || check_eat(philo) == 0)
-		{
-			j = 0;
-			while (j < philo->data->nb_philo)
-			{
-				pthread_join(philo[j].thread, NULL);
-				j++;
-			}
-			// j = -1;
-			// while (++j < philo->data->nb_philo)
-				// pthread_mutex_destroy(&philo[j].lf);
-			pthread_mutex_destroy(&philo->data->dead_mutex);
-			pthread_mutex_destroy(&philo->data->write_mutex);
-			pthread_mutex_destroy(&philo->data->eat_mutex);
-			pthread_mutex_destroy(&philo->data->stop_mutex);
-			return ;
-		}
-	}
-}
+// int	check_eat(t_philo *philo)
+// {
+// 	pthread_mutex_lock(&philo->data->eat_mutex);
+// 	if (philo->data->time_eat == philo->data->nb_eat
+// 		&& philo->data->nb_eat != 0)
+// 	{
+// 		pthread_mutex_lock(&philo->data->stop_mutex);
+// 		philo->data->stop = 1;
+// 		pthread_mutex_unlock(&philo->data->stop_mutex);
+// 		pthread_mutex_unlock(&philo->data->eat_mutex);
+// 		return (0);
+// 	}
+// 	pthread_mutex_unlock(&philo->data->eat_mutex);
+// 	return (1);
+// }
+
+// void	*routine(void *data)
+// {
+// 	t_philo	*philo;
+
+// 	philo = (t_philo *)data;
+// 	while (check_stop(philo->data) == 0)
+// 		take_fork(philo);
+// 	return (NULL);
+// }
+
+// void	next_prog(t_philo *philo)
+// {
+// 	int	j;
+
+// 	j = 0;
+// 	while (check_stop(philo->data) == 0)
+// 	{
+// 		if (check_dead(&philo[j]) == 0 || check_eat(philo) == 0)
+// 		{
+// 			j = 0;
+// 			while (j < philo->data->nb_philo)
+// 			{
+// 				pthread_join(philo[j].thread, NULL);
+// 				j++;
+// 			}
+// 			// j = -1;
+// 			// while (++j < philo->data->nb_philo)
+// 				// pthread_mutex_destroy(&philo[j].lf);
+// 			pthread_mutex_destroy(&philo->data->dead_mutex);
+// 			pthread_mutex_destroy(&philo->data->write_mutex);
+// 			pthread_mutex_destroy(&philo->data->eat_mutex);
+// 			pthread_mutex_destroy(&philo->data->stop_mutex);
+// 			return ;
+// 		}
+// 	}
+// }
 
 void	create_thread(t_philo *philo)
 {
@@ -56,11 +99,11 @@ void	create_thread(t_philo *philo)
 	i = 0;
 	while (i < philo->data->nb_philo)
 	{
-		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		// pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
 		usleep(2000);
 		i++;
 	}
-	next_prog(philo);
+	// next_prog(philo);
 }
 
 int	init_mutex(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:58:44 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/13 22:04:23 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:57:00 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ void	init_all(int argc, char **argv, t_data *data)
 	data->time_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->nb_eat = ft_atoi(argv[5]);
+	if (data->nb_eat <= 0)
+	{
+		write(2, "Invalid argument\n", ft_strlen("Invalid argument\n"));
+		free(data);
+		exit(EXIT_FAILURE);
+	}
+	if (data->nb_philo > 200 || data->nb_philo < 1 || data->time_die < 0
+		|| data->time_eat < 0 || data->time_sleep < 0)
+	{
+		write(2, "Invalid argument\n", ft_strlen("Invalid argument\n"));
+		free(data);
+		exit(EXIT_FAILURE);
+	}
 	return ;
 }
 
@@ -39,5 +52,6 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].last_meal = 0;
 		philo[i].data = data;
 	}
+
 	return ;
 }
