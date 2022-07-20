@@ -6,20 +6,20 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:55:59 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/14 15:58:25 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:41:02 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-  int i;
+	int	i;
 
-  i = 0;
-  while (*str++)
-    i++;
-  return (i);
+	i = 0;
+	while (*str++)
+		i++;
+	return (i);
 }
 
 int	ft_atoi(const char *nptr)
@@ -69,7 +69,7 @@ long int	ft_time(void)
 	if (gettimeofday(&current_time, NULL) == -1)
 	{
 		// FREE
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	return (time);

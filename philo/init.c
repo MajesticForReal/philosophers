@@ -6,7 +6,7 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:58:44 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/14 15:57:00 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:09:47 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_all(int argc, char **argv, t_data *data)
 	data->time_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->nb_eat = ft_atoi(argv[5]);
-	if (data->nb_eat <= 0)
+	if (data->nb_eat < 0)
 	{
 		write(2, "Invalid argument\n", ft_strlen("Invalid argument\n"));
 		free(data);
@@ -36,6 +36,23 @@ void	init_all(int argc, char **argv, t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	return ;
+}
+
+int	init_mutex(t_data *data)
+{
+	if (pthread_mutex_init(&data->write_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->eat_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->stop_mutex, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->lf, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->rf, NULL) != 0)
+		return (-1);
+	return (0);
 }
 
 void	init_philo(t_data *data, t_philo *philo)
@@ -52,6 +69,5 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].last_meal = 0;
 		philo[i].data = data;
 	}
-
 	return ;
 }
