@@ -6,13 +6,13 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:58:44 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/18 20:09:47 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:36:19 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_all(int argc, char **argv, t_data *data)
+void	init_data(int argc, char **argv, t_data *data)
 {
 	ft_bzero(data, sizeof(t_data));
 	data->time_start = ft_time();
@@ -70,4 +70,17 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].data = data;
 	}
 	return ;
+}
+
+void	init_thread(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->data->nb_philo)
+	{
+		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		usleep(2000);
+		i++;
+	}
 }
