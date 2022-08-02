@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:29:58 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/27 17:13:15 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/02 23:02:48 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,8 @@ void ft_one_philo(t_data *data);
 void init_thread(t_philo *philo);
 void *routine(void *arg);
 void ft_msg(t_philo *philo, int action);
+void	ft_eat(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	check_status(t_philo *philo);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:55:59 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/27 17:10:17 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:34:54 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,4 @@ void ft_one_philo(t_data *data)
 	printf("%ld %d died\n", (data->time_die + 1), 1);
 	exit(EXIT_SUCCESS);
 }
+

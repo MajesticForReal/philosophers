@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:52:35 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/27 17:39:21 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/02 23:04:44 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,37 @@ void	check_status(t_philo *philo)
 	else if (philo->data->status == 1)
 	{
 		pthread_mutex_unlock(&philo->data->dead_mutex);
-		ft_exit();
+		// ft_exit();
 		exit(EXIT_SUCCESS);
 	}
 	else if (philo->data->status == 2)
 	{
-		ft_msg(philo, DEAD);
-		ft_exit();
+		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, DEAD);
+		// ft_msg(philo, DEAD);
+		// ft_exit();
 		exit(EXIT_SUCCESS);
 	}
 	return ;
 }
 
-void	ft_eat(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->lf);
-	ft_msg(philo, FORK);
-	pthread_mutex_lock(&philo->data->rf);
-	ft_msg(philo, FORK);
-	if (philo->last_meal - ft_time() > philo->data->time_die)
-	{
-		philo->data->status = 2;
-		check_status(philo);
-	}
-	usleep(philo->data->time_eat / 1000);
-	philo->last_meal = ft_time;
-	philo->x_meal++;
-	pthread_mutex_unlock(&philo->data->lf);
-	pthread_mutex_unlock(&philo->data->rf);
+// void	ft_eat(t_philo *philo)
+// {
+// 	pthread_mutex_lock(&philo->data->lf);
+// 	ft_msg(philo, FORK);
+// 	pthread_mutex_lock(&philo->data->rf);
+// 	ft_msg(philo, FORK);
+// 	if (philo->last_meal - ft_time() > philo->data->time_die)
+// 	{
+// 		philo->data->status = 2;
+// 		check_status(philo);
+// 	}
+// 	usleep(philo->data->time_eat / 1000);
+// 	philo->last_meal = ft_time;
+// 	philo->x_meal++;
+// 	pthread_mutex_unlock(&philo->data->lf);
+// 	pthread_mutex_unlock(&philo->data->rf);
 	
-}
+// }
 
 // int	check_stop(t_data *data)
 // {
@@ -87,13 +88,19 @@ void	*routine_loop(t_philo *philo)
 	i = 0;
 	while (1)
 	{
-		if (philo->data->nb_eat == 0 || philo->x_meal == philo->data->nb_eat)
-			exit(EXIT_SUCCESS);
+		// if (philo->data->nb_eat == 0 || philo->x_meal == philo->data->nb_eat)
+		// 	exit(EXIT_SUCCESS);
 		// FT FREEEEE EXIIIIIIIT
 		// if (check_stop == 0 && check_dead == 0)
 		ft_eat(philo);
-		pthread_join(philo[i].thread, NULL);
-		i++;
+		ft_sleep(philo);
+		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, THINK);
+		// while (i < philo->data->nb_philo)
+		// {	
+			// pthread_join(philo[i].thread, NULL);
+			// i++;
+		// }
+		printf("\nOK CA REPART\n");
 		// if (check_stop == 0 && check_dead == 0)
 			// ft_sleep(philo);
 		// if (check_stop == 0 && check_dead == 0)
@@ -107,7 +114,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2)
-		usleep(1000);
+		usleep(500);
 	routine_loop(philo);
 	return (NULL);
 }
@@ -145,3 +152,4 @@ int	main(int argc, char **argv)
 	free(philo);
 	return (0);
 }
+

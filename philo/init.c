@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:58:44 by anrechai          #+#    #+#             */
-/*   Updated: 2022/07/27 16:36:19 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/02 23:09:58 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_philo(t_data *data, t_philo *philo)
 		philo[i].x_meal = 0;
 		philo[i].lf = i;
 		philo[i].rf = (i + 1) % data->nb_philo;
-		philo[i].last_meal = 0;
+		philo[i].last_meal = ft_time();
 		philo[i].data = data;
 	}
 	return ;
@@ -80,7 +80,13 @@ void	init_thread(t_philo *philo)
 	while (i < philo->data->nb_philo)
 	{
 		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
-		usleep(2000);
+		i++;
+	}
+	i = 0;
+	while (i < philo->data->nb_philo)
+	{	
+		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
 }
+
