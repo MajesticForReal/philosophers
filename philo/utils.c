@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:55:59 by anrechai          #+#    #+#             */
-/*   Updated: 2022/08/01 19:34:54 by antoine          ###   ########.fr       */
+/*   Updated: 2022/08/03 18:02:04 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,25 @@ long int ft_time(void)
 void ft_msg(t_philo *philo, int action)
 {
 	pthread_mutex_lock(&philo->data->write_mutex);
-	if (action == FORK)
+	if (action == 1)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, FORK);
-	else if (action == EAT)
+	else if (action == 2)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, EAT);
-	else if (action == SLEEP)
+	else if (action == 3)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, SLEEP);
-	else if (action == THINK)
+	else if (action == 4)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, THINK);
-	else if (action == DEAD)
+	else if (action == 5)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, DEAD);
-	pthread_mutex_unlock(&philo->data->write_mutex);
+	if (action == 1 || action == 2 || action == 3 || action == 4)
+		pthread_mutex_unlock(&philo->data->write_mutex);
 	return;
 }
 
 void ft_one_philo(t_data *data)
 {
 	printf("%ld %d has taken a fork\n", (ft_time() - data->time_start), 1);
-	printf("%ld %d died\n", (data->time_die + 1), 1);
+	printf("%d %d died\n", (data->time_die + 1), 1);
 	exit(EXIT_SUCCESS);
 }
 

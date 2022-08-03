@@ -6,7 +6,7 @@
 #    By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 18:31:29 by anrechai          #+#    #+#              #
-#    Updated: 2022/07/20 16:17:49 by anrechai         ###   ########.fr        #
+#    Updated: 2022/08/03 15:01:46 by anrechai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS		=	${SRCS:.c=.o}
 
 NAME		=	philo
 
-CFLAGS		=	-Wall -Wextra -lpthread
+CFLAGS		=	-Wall -Wextra -pthread
 
 CC			=	cc
 

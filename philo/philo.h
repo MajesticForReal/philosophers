@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:29:58 by anrechai          #+#    #+#             */
-/*   Updated: 2022/08/02 23:02:48 by antoine          ###   ########.fr       */
+/*   Updated: 2022/08/03 20:49:04 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_data
 	int time_sleep;
 	int nb_eat;
 	int status;
+	int	*meals;
 	pthread_mutex_t write_mutex;
 	pthread_mutex_t dead_mutex;
 	pthread_mutex_t eat_mutex;
 	pthread_mutex_t stop_mutex;
-	pthread_mutex_t lf;
-	pthread_mutex_t rf;
+	pthread_mutex_t *forks;
 } t_data;
 
 typedef struct s_philo
@@ -69,6 +69,7 @@ void *routine(void *arg);
 void ft_msg(t_philo *philo, int action);
 void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
-void	check_status(t_philo *philo);
+int	check_status(t_philo *philo);
+void	*routine_loop(t_philo *philo);
 
 #endif
