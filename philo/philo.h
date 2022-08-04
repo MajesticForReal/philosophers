@@ -6,7 +6,7 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:29:58 by anrechai          #+#    #+#             */
-/*   Updated: 2022/08/03 20:49:04 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/04 22:17:29 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ typedef struct s_data
 {
 	long int time_start;
 	int nb_philo;
-	int time_die;
+	long int time_die;
 	int time_eat;
 	int time_sleep;
 	int nb_eat;
 	int status;
 	int	*meals;
 	pthread_mutex_t write_mutex;
-	pthread_mutex_t dead_mutex;
+	// pthread_mutex_t dead_mutex;
 	pthread_mutex_t eat_mutex;
 	pthread_mutex_t stop_mutex;
 	pthread_mutex_t *forks;
@@ -62,14 +62,17 @@ int ft_check_arg2(char **argv);
 int ft_atoi(const char *nptr);
 void ft_bzero(void *s, size_t n);
 long int ft_time(void);
-void init_data(int argc, char **argv, t_data *data);
+int init_data(int argc, char **argv, t_data *data);
 void ft_one_philo(t_data *data);
 void init_thread(t_philo *philo);
 void *routine(void *arg);
 void ft_msg(t_philo *philo, int action);
 void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
-int	check_status(t_philo *philo);
+int		check_status(t_philo *philo);
 void	*routine_loop(t_philo *philo);
+void	*ft_exit(t_philo *philo);
+int	ft_fork(t_philo *philo);
+void	ft_stop(t_philo *philo);
 
 #endif

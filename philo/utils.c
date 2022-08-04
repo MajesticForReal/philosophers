@@ -6,7 +6,7 @@
 /*   By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:55:59 by anrechai          #+#    #+#             */
-/*   Updated: 2022/08/03 18:02:04 by anrechai         ###   ########.fr       */
+/*   Updated: 2022/08/04 22:29:28 by anrechai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,18 @@ void ft_msg(t_philo *philo, int action)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, THINK);
 	else if (action == 5)
 		printf("%ld %d %s", (ft_time() - philo->data->time_start), philo->id, DEAD);
-	if (action == 1 || action == 2 || action == 3 || action == 4)
-		pthread_mutex_unlock(&philo->data->write_mutex);
+	// if (action == 1 || action == 2 || action == 3 || action == 4)
+		// pthread_mutex_unlock(&philo->data->write_mutex);
+	pthread_mutex_unlock(&philo->data->write_mutex);
 	return;
 }
 
 void ft_one_philo(t_data *data)
 {
 	printf("%ld %d has taken a fork\n", (ft_time() - data->time_start), 1);
-	printf("%d %d died\n", (data->time_die + 1), 1);
-	exit(EXIT_SUCCESS);
+	printf("%ld %d died\n", (data->time_die + 1), 1);
+	free(data->meals);
+	free(data);
+	return ;
 }
 
