@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/nfs/homes/anrechai/Desktop/project/philo'
+make: Leaving directory '/mnt/nfs/homes/anrechai/Desktop/project/philo'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

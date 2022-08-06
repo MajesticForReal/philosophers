@@ -6,17 +6,17 @@
 #    By: anrechai <anrechai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 18:31:29 by anrechai          #+#    #+#              #
-#    Updated: 2022/08/03 15:01:46 by anrechai         ###   ########.fr        #
+#    Updated: 2022/08/05 18:04:48 by anrechai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	main.c utils.c init.c check.c routine.c
+SRCS		=	main.c utils.c init.c check.c routine.c action.c
 
 OBJS		=	${SRCS:.c=.o}
 
 NAME		=	philo
 
-CFLAGS		=	-Wall -Wextra -pthread
+CFLAGS		=	-Wall -Wextra -Werror -pthread
 
 CC			=	cc
 
